@@ -1,0 +1,231 @@
+---
+title: "UNIT_2_Assignment"
+author: "lalitha"
+date: "2024-08-02"
+output: html_document
+---
+
+
+
+```{r}
+library(ISLR)
+library(MASS)
+```
+
+```{r}
+?Boston
+```
+
+```{r}
+data("Boston")
+```
+
+
+```{r}
+boston=Boston
+
+```
+
+
+#### 1) In this exercise you will create some simulated data and will fit simple linear regression models to it. Make sure to use set.seed(1) prior to starting part (a) to ensure consistent results.rnorm
+
+
+```{r}
+#* a.	Using the rnorm() function, create a vector, “x”, containing 100 observations drawn from a N(0,1) distribution. This represents a feature, X.
+set.seed(1)
+x=rnorm(100,mean = 0,sd=1)
+x
+#* b.	Using the rnorm() function, create a vector, “eps”, containing 100 observations drawn from a N(0,0.25) distribution.
+eps=rnorm(100,mean=0,sd=sqrt(0.25))
+eps
+#* c.	Using “x” and “eps”, generate a vector “y” according to the model Y=−1+0.5X+ε.
+#What is the length of the vector “y” ? What are the values of β0 and β1 in this linear model ?
+y = -1+0.5*x+eps
+```
+
+
+```{r}
+y
+length(y)
+```
+beta 0 is -1
+beta 1 is 0.5
+
+
+```{r}
+#* d.	Create a scatterplot displaying the relationship between “x” and “y”. Comment on what you observe.
+plot(x,y)
+```
+there is a positive linear relation ship between x and y.
+
+```{r}
+#* e.	Fit a least squares linear model to predict “y” using “x”. Comment on the model obtained. How do β^0 and β^1 compare to β0 and β1 ?
+model_6=lm(y~x)
+```
+
+
+```{r}
+summary(model_6)
+```
+ both are same estimated and actual beta 0 and beta 1 
+
+
+```{r}
+#* f.	Display the least squares line on the scatterplot obtained in (d). Draw the population regression line on the plot, in a different color. Use the legend() function to create an appropriate legend.
+plot(x,y)
+abline(model_6,col="red",lwd=3,lty=6)
+abline(coef = c(-1,0.5),col="blue",lwd=2)
+legend("topleft",c("LR","PR"),col=c("red","blue"),lty=c(6,1),lwd=c(3,2))
+```
+
+#### 2)This problem involves the “Boston” data set, which we saw in the lab for this chapter. We will now try to predict per capita crime rate using the other variables in this data set. In other words, per capita crime rate is the response, and the other variables are the predictors.
+
+
+
+```{r}
+#* a.	For each predictor, fit a simple linear regression model to predict the response. Describe your results. In which of the models is there a statistically significant association between the predictor and the response ? Create some plots to back up your assertions.
+Assign_2_1=lm(crim~zn,data = boston)
+summary(Assign_2_1)
+```
+```{r}
+plot(boston$zn,boston$crim)
+```
+
+
+* there is relationship between per captia crime rate and zn, but that is negative relationship
+
+```{r}
+Assign_2_2=lm(crim~indus,data = boston)
+summary(Assign_2_2)
+```
+```{r}
+plot(boston$indus,boston$crim)
+```
+* With this model and plot we can say per captia crime rate and indus has low positve realtionship.
+
+```{r}
+Assign_2_3=lm(crim~chas,data = boston)
+summary(Assign_2_3)
+```
+
+```{r}
+plot(boston$chas,boston$crim)
+```
+* there is no relationship between per captia crime rate nad chas.
+```{r}
+Assign_2_4=lm(crim~nox,data = boston)
+summary(Assign_2_4)
+```
+
+```{r}
+plot(boston$nox,boston$crim)
+```
+
+* per captia crime rate and nox also has positve relationship.
+
+```{r}
+Assign_2_5=lm(crim~rm,data = boston)
+summary(Assign_2_5)
+```
+
+```{r}
+plot(boston$rm,boston$crim)
+```
+
+* there is negative relationship between crim and rm
+
+```{r}
+Assign_2_6=lm(crim~age,data = boston)
+summary(Assign_2_6)
+```
+
+```{r}
+plot(boston$age,boston$crim)
+```
+* there is positive relationship between crim and age.
+
+```{r}
+Assign_2_7=lm(crim~dis,data = boston)
+summary(Assign_2_7)
+```
+
+```{r}
+plot(boston$dis,boston$crim)
+```
+
+* crim and dis also negative relationship
+```{r}
+Assign_2_8=lm(crim~rad,data = boston)
+summary(Assign_2_8)
+```
+
+```{r}
+plot(boston$rad,boston$crim)
+```
+* there is significent relationship between crim and rad
+
+```{r}
+Assign_2_9=lm(crim~tax,data = boston)
+summary(Assign_2_9)
+```
+
+```{r}
+plot(boston$tax,boston$crim)
+```
+
+* it also has significient relationship
+```{r}
+Assign_2_10=lm(crim~ptratio,data = boston)
+summary(Assign_2_10)
+```
+
+```{r}
+plot(boston$ptratio,boston$crim)
+```
+
+* these to has  positive relationship
+```{r}
+Assign_2_11=lm(crim~black,data = boston)
+summary(Assign_2_11)
+```
+
+```{r}
+plot(boston$black,boston$crim)
+```
+* these two has negative relationship
+
+```{r}
+Assign_2_12=lm(crim~lstat,data = boston)
+summary(Assign_2_12)
+```
+
+```{r}
+plot(boston$lstat,boston$crim)
+```
+* these to has positive relationship
+
+```{r}
+Assign_2_13=lm(crim~medv,data = boston)
+summary(Assign_2_13)
+```
+
+```{r}
+plot(boston$medv,boston$crim)
+```
+* these two has negative relationship
+
+in conculsion fiting simple linear regression model these are the details we get:
+      * predictors chas is not affecting crime rate. these predictors zn,rm,dis,black,medv increasing it  affect's opposite to means  crime rate  decrease.if these predictors indus,nox,age,rad,ptratio,lstat increase's crime rate is also increasing.
+
+```{r}
+#* b.	Fit a multiple regression model to predict the response using all of the predictors. Describe your results. For which predictors can we reject the null hypothesis H0:βj=0 ?
+Assign_2_b=lm(crim~.,data = boston)
+summary(Assign_2_b)
+```
+* fiting multiple regression model zn and black has low signifcient relationship.dis and rad has strong significient relation ship.medv also has significient relationship.
+* using p value we can reject nullhypothesis for these predictors "zn","dis","rad","black","medv".
+
+
+
+
+
